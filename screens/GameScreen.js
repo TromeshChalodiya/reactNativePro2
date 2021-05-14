@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
@@ -119,7 +126,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   list: {
-    width: '60%',
+    width: Dimensions.get('window').width > 350 ? '60%' : '80%',
     marginVertical: 10,
   },
   textList: {
