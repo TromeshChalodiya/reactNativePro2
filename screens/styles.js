@@ -10,10 +10,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginVertical: 10,
+    fontFamily: 'open-sans-bold',
   },
   inputContainer: {
     width: 300,
-    maxWidth: '80%',
+    maxWidth: '90%',
     alignItems: 'center',
   },
   buttonContainer: {
@@ -42,25 +43,23 @@ const styles = StyleSheet.create({
     width: 60,
     textAlign: 'center',
   },
-  confirmedOutput: {
-    padding: 12,
-    backgroundColor: '#a0937d',
-    borderColor: '#a0937d',
-    borderWidth: 1,
-    marginVertical: 20,
-    paddingVertical: 10,
-    borderRadius: 4,
-    shadowColor: '#a0937d',
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
+  outPutContainer: {
+    paddingTop: 40,
   },
-  textColor: {
-    color: 'white',
-    fontSize: 19,
+  startGame: {
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    borderRadius: 4,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+    borderWidth: 2,
+    marginTop: 15,
+  },
+  summuryContainer: {
+    width: 300,
+    maxWidth: '65%',
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
 
