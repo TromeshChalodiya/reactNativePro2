@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
@@ -20,10 +20,9 @@ const generateRandomBetween = (min, max, exclude) => {
 };
 
 const GameScreen = (props) => {
-  const [currentGuess, setCurrentGuess] = useState(
-    generateRandomBetween(1, 100, props.userChoice)
-  );
-  const [rounds, setRounds] = useState(0);
+  const initalGuess = generateRandomBetween(1, 100, props.userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initalGuess);
+  const [pastGuess, setPastGuess] = useState([initalGuess]);
 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
@@ -32,14 +31,14 @@ const GameScreen = (props) => {
 
   useEffect(() => {
     if (currentGuess === props.userChoice) {
-      props.onGameOver(rounds);
+      onGameOver(pastGuess.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
   const nextGuessHandler = (direction) => {
     if (
-      (direction === 'lower' && currentGuess < props.userChoice) ||
-      (direction === 'greater' && currentGuess > props.userChoice)
+      (direction === 'lower' && currentGuess < userChoice) ||
+      (direction === 'greater' && currentGuess > userChoice)
     ) {
       Alert.alert("Don't lie!", 'You know that this is wrong...', [
         { text: 'Sorry!', style: 'cancel' },
@@ -59,7 +58,7 @@ const GameScreen = (props) => {
     );
 
     setCurrentGuess(nextNumber);
-    setRounds((curRounds) => curRounds + 1);
+    setPastGuess((curPastGuess) => [nextNumber, ...curPastGuess]);
   };
 
   return (
@@ -76,6 +75,16 @@ const GameScreen = (props) => {
           <Ionicons name='caret-up' size={24} />
         </MainButton>
       </Card>
+      <View style={styles.list}>
+        <ScrollView>
+          {pastGuess.map((guess, index) => (
+            <View key={guess} style={styles.textList}>
+              <Text style={styles.textStyle}>#{pastGuess.length - index}</Text>
+              <Text style={styles.textStyle}>{guess}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -108,6 +117,25 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderColor: colors.primary,
     borderWidth: 2,
+  },
+  list: {
+    width: '60%',
+    marginVertical: 10,
+  },
+  textList: {
+    padding: 15,
+    borderColor: 'black',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginVertical: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  textStyle: {
+    fontFamily: 'open-sans-bold',
+    fontSize: 15,
   },
 });
 
