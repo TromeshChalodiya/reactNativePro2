@@ -12,6 +12,7 @@ import Card from '../components/Card';
 import Input from '../components/Input';
 import styles from './styles';
 import NumberContainer from '../components/NumberContainer';
+import MainButton from '../components/MainButton';
 
 /* TouchableWithoutFeedback take the Keyboard
  API as a arugument and dissmiss the keyboard
@@ -54,13 +55,9 @@ const StartGameScreen = (props) => {
       <Card style={styles.summuryContainer}>
         <Text>You selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <View style={styles.startGame}>
-          <Button
-            title='START GAME'
-            color='white'
-            onPress={() => props.onStartGame(selectedNumber)}
-          />
-        </View>
+        <MainButton onPress={() => props.onStartGame(selectedNumber)}>
+          START GAME
+        </MainButton>
       </Card>
     );
   }
