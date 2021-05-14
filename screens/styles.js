@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   summuryContainer: {
     width: 300,
-    maxWidth: '65%',
+    maxWidth: '85%',
     alignItems: 'center',
     marginTop: 20,
   },
