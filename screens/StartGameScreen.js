@@ -11,6 +11,7 @@ import {
 import Card from '../components/Card';
 import Input from '../components/Input';
 import styles from './styles';
+import NumberContainer from '../components/NumberContainer';
 
 /* TouchableWithoutFeedback take the Keyboard
  API as a arugument and dissmiss the keyboard
@@ -43,15 +44,24 @@ const StartGameScreen = (props) => {
     setHasConfirmed(true);
     setSelectedNumber(chosenNumber);
     setEnteredValue('');
+    Keyboard.dismiss();
   };
 
   let confirmedOutput;
 
   if (hasConfirmed) {
     confirmedOutput = (
-      <View style={styles.confirmedOutput}>
-        <Text style={styles.textColor}>Chosen Number: {selectedNumber}</Text>
-      </View>
+      <Card style={styles.summuryContainer}>
+        <Text>You selected</Text>
+        <NumberContainer>{selectedNumber}</NumberContainer>
+        <View style={styles.startGame}>
+          <Button
+            title='START GAME'
+            color='white'
+            onPress={() => props.onStartGame(selectedNumber)}
+          />
+        </View>
+      </Card>
     );
   }
 
@@ -89,7 +99,7 @@ const StartGameScreen = (props) => {
             </View>
           </View>
         </Card>
-        {confirmedOutput}
+        <View style={styles.outPutContainer}>{confirmedOutput}</View>
       </View>
     </TouchableWithoutFeedback>
   );
