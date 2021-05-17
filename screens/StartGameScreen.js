@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 
 import Card from '../components/Card';
@@ -31,6 +34,33 @@ const StartGameScreen = (props) => {
     setEnteredValue('');
     setHasConfirmed(false);
   };
+
+  /*
+  
+  Below logic can work as well when you pass state to the button style as
+  style={{width: buttonWidth}} the only diffrence here is that when phone
+  change the orientation then componentDidUpdate method fire which
+  is over useEffect method and then it will reset the orientation so 
+  we will not running into button style issue for our app but 
+  it can work for other Dynamic functionality as well!
+
+  const [buttonWidth, setButtonWidth] = useState(
+    Dimensions.get('window').width / 3.5
+  );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonWidth(Dimensions.get('window').width / 3.5);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
+
+  */
 
   const confirmInputHandler = () => {
     const chosenNumber = parseInt(enteredValue);
@@ -63,42 +93,46 @@ const StartGameScreen = (props) => {
   }
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <View style={styles.screen}>
-        <Text style={styles.title}>Start a New Game!</Text>
-        <Card style={styles.inputContainer}>
-          <Text>Select a Number</Text>
-          <Input
-            style={styles.input}
-            maxLength={2}
-            blurOnSubmit
-            autoCapitalize='none'
-            autoCompleteType='off'
-            autoCorrect={false}
-            keyboardType='number-pad'
-            onChangeText={numInputHandler}
-            value={enteredValue}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.resetButton}>
-              <Button title='Reset' onPress={resetEnterValue} />
-            </View>
-            <View style={styles.confirmButton}>
-              <Button
-                title='Confirm'
-                color='white'
-                onPress={confirmInputHandler}
+    <ScrollView>
+      <KeyboardAvoidingView behavior='position'>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
+        >
+          <View style={styles.screen}>
+            <Text style={styles.title}>Start a New Game!</Text>
+            <Card style={styles.inputContainer}>
+              <Text>Select a Number</Text>
+              <Input
+                style={styles.input}
+                maxLength={2}
+                blurOnSubmit
+                autoCapitalize='none'
+                autoCompleteType='off'
+                autoCorrect={false}
+                keyboardType='number-pad'
+                onChangeText={numInputHandler}
+                value={enteredValue}
               />
-            </View>
+              <View style={styles.buttonContainer}>
+                <View style={styles.resetButton}>
+                  <Button title='Reset' onPress={resetEnterValue} />
+                </View>
+                <View style={styles.confirmButton}>
+                  <Button
+                    title='Confirm'
+                    color='white'
+                    onPress={confirmInputHandler}
+                  />
+                </View>
+              </View>
+            </Card>
+            <View style={styles.outPutContainer}>{confirmedOutput}</View>
           </View>
-        </Card>
-        <View style={styles.outPutContainer}>{confirmedOutput}</View>
-      </View>
-    </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
