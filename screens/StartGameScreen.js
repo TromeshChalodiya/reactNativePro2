@@ -9,6 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
+  Platform,
 } from 'react-native';
 
 import Card from '../components/Card';
@@ -122,7 +123,7 @@ const StartGameScreen = (props) => {
                 <View style={styles.confirmButton}>
                   <Button
                     title='Confirm'
-                    color='white'
+                    color={Platform.OS === 'ios' ? '#1477D7' : 'red'}
                     onPress={confirmInputHandler}
                   />
                 </View>

@@ -11,7 +11,7 @@ const NumberContainer = (props) => {
 
 const styles = StyleSheet.create({
   confirmedOutput: {
-    marginTop: 20,
+    marginTop: 10,
     padding: 12,
     backgroundColor: '#a0937d',
     borderColor: '#a0937d',

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../constants/color';
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   screen: {
@@ -28,18 +28,13 @@ const styles = StyleSheet.create({
   resetButton: {
     width: Dimensions.get('window').width / 3.5,
     paddingVertical: 1,
-    borderRadius: 4,
-    borderColor: colors.primary,
-    borderWidth: 2,
     marginRight: 60,
   },
   confirmButton: {
     width: Dimensions.get('window').width / 3.5,
     paddingVertical: 1,
     borderRadius: 4,
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-    borderWidth: 2,
+    borderWidth: 0,
   },
   input: {
     width: 60,
